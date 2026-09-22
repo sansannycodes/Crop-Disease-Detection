@@ -1,0 +1,17 @@
+# Core Machine Learning & Computer Vision
+tensorflow>=2.12.0
+opencv-python>=4.7.0.72
+numpy>=1.23.5
+pandas>=1.5.3
+
+# Visualization & Data Analysis
+matplotlib>=3.7.1
+seaborn>=0.12.2
+scikit-learn>=1.2.2
+
+# Image Processing & Web App
+Pillow>=9.5.0
+streamlit>=1.22.0
+
+# Testing
+pytest>=7.3.1
