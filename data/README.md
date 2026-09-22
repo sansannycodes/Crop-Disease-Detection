@@ -1,6 +1,6 @@
-# Dataset Placement & Setup Guide
+# Dataset Placement & Setup Guide - Crop-Disease-Detection
 
-This directory holds the training, validation, and test datasets for the **Crop Disease Detection** project.
+This directory holds the training, validation, and test datasets for the **Crop-Disease-Detection** project.
 Because raw image datasets (~2 GB) are too large to commit directly to GitHub, follow the instructions below to download and set up the dataset locally.
 
 ---
@@ -34,21 +34,19 @@ Run the following snippet in Python to download the **New Plant Diseases Dataset
 
 ```python
 import kagglehub
-import shutil
 
 # Download latest version
 path = kagglehub.dataset_download("vipoooool/new-plant-diseases-dataset")
 print("Dataset downloaded to:", path)
 
-# Target directory: cropdiseaseprediction/data/dataset
-# Copy or link the downloaded train and valid folders to data/dataset/
+# Copy or move the train and valid folders into data/dataset/
 ```
 
 ### Option B: Manual Download from Kaggle
 
 1. Visit the Kaggle dataset page: [New Plant Diseases Dataset](https://www.kaggle.com/datasets/vipoooool/new-plant-diseases-dataset).
 2. Click **Download** and extract the ZIP archive.
-3. Move the `New Plant Diseases Dataset(Augmented)/New Plant Diseases Dataset(Augmented)/train` and `valid` folders into `cropdiseaseprediction/data/dataset/`.
+3. Move the `New Plant Diseases Dataset(Augmented)/New Plant Diseases Dataset(Augmented)/train` and `valid` folders into `data/dataset/`.
 
 ---
 

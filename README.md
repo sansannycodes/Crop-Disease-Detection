@@ -1,6 +1,8 @@
-# 🌿 Crop Disease Detection System using Deep Learning
+# 🌿 Crop-Disease-Detection
 
 A deep learning project for identifying plant diseases from leaf images using Convolutional Neural Networks (CNN), OpenCV, and TensorFlow/Keras. Structured with clean `backend/` and `frontend/` components, interactive Streamlit web interface, CLI inference capabilities, and automated unit testing.
+
+[![GitHub Repository](https://img.shields.io/badge/GitHub-Crop--Disease--Detection-blue?logo=github)](https://github.com/sansannycodes/Crop-Disease-Detection)
 
 ---
 
@@ -81,60 +83,14 @@ The system is trained and evaluated on the **PlantVillage / New Plant Diseases D
 
 ---
 
-## 🛠️ Data Preprocessing & Augmentation
-
-1. **Image Loading & Resizing**: Input images are loaded via OpenCV/PIL, converted to RGB space, and resized to $224 \times 224$ pixels.
-2. **Normalization**: Pixel intensities are rescaled from $[0, 255]$ to floating-point values in $[0.0, 1.0]$.
-3. **Training Data Augmentation**: Applied during training to prevent overfitting:
-   - Rotation Range: $\pm 20^\circ$
-   - Width & Height Shifts: $\pm 10\%$
-   - Shear Range: $10\%$
-   - Zoom Range: $10\%$
-   - Horizontal Flip: Enabled
-
----
-
-## 🧠 CNN Model Architecture
-
-The custom CNN architecture is designed for multi-class image classification using Keras Sequential API:
-
-```text
-Input Layer: (224, 224, 3)
-│
-├── Conv2D (32 filters, 3x3) + BatchNorm + ReLU + MaxPooling (2x2) + Dropout (0.2)
-├── Conv2D (64 filters, 3x3) + BatchNorm + ReLU + MaxPooling (2x2) + Dropout (0.2)
-├── Conv2D (128 filters, 3x3) + BatchNorm + ReLU + MaxPooling (2x2) + Dropout (0.3)
-├── Conv2D (256 filters, 3x3) + BatchNorm + ReLU + MaxPooling (2x2) + Dropout (0.3)
-│
-├── Flatten Layer
-├── Dense (256 units) + BatchNorm + ReLU + Dropout (0.5)
-└── Output Layer: Dense (38 units, Softmax)
-```
-
-- **Loss Function**: Categorical Crossentropy (`categorical_crossentropy`)
-- **Optimizer**: Adam ($\text{learning rate} = 0.001$)
-- **Evaluation Metrics**: Categorical Accuracy, Top-3 Categorical Accuracy
-
----
-
-## 🏋️ Training & Evaluation Procedure
-
-- **Callbacks**:
-  - `ModelCheckpoint`: Saves the best model weights to `models/crop_disease_cnn.keras` based on validation accuracy.
-  - `EarlyStopping`: Stops training if validation loss does not improve for 5 consecutive epochs.
-  - `ReduceLROnPlateau`: Reduces learning rate by a factor of $0.2$ when validation loss plateaus.
-- **Evaluation Metrics Generated**: Loss curves, Accuracy progression plots (`output/training_history.png`), and Top-3 accuracy metrics upon validation completion.
-
----
-
 ## 📁 Project Structure
 
 ```text
-cropdiseaseprediction/
+Crop-Disease-Detection/
 ├── .gitignore               # Git exclusion rules (venv, cache, models, datasets)
 ├── README.md                # Comprehensive project documentation
-├── requirements.txt         # Project dependencies list
-├── backend/                 # Core Backend Modules (CNN Model, Data, Pipeline)
+├── requirements.txt         # Project dependencies manifest
+├── backend/                 # Backend Processing & Model Pipeline
 │   ├── __init__.py          # Package initializer
 │   ├── config.py            # Hyperparameters, class labels, and relative paths
 │   ├── dataset.py           # Preprocessing & data generator functions
@@ -156,70 +112,69 @@ cropdiseaseprediction/
 
 ---
 
-## 🚀 How to Run the Project
+## 🚀 How to Run Everything (Step-by-Step)
 
-### 1. Prerequisites & Installation
-
-Clone the repository and install required packages:
+### Step 1: Clone Repository & Install Dependencies
 
 ```bash
-git clone https://github.com/your-username/cropdiseaseprediction.git
-cd cropdiseaseprediction
+git clone https://github.com/sansannycodes/Crop-Disease-Detection.git
+cd Crop-Disease-Detection
 pip install -r requirements.txt
 ```
 
-### 2. Dataset Setup
+### Step 2: Download & Prepare the Dataset
 
-Large raw datasets are excluded from Git. Download the dataset and place it in `data/dataset/`:
+Raw dataset images are excluded from Git to keep the repository lightweight. Download the dataset into `data/dataset/`:
 
 ```bash
-# Follow instructions in data/README.md or use kagglehub:
+# Download dataset using KaggleHub snippet:
 python -c "import kagglehub; path = kagglehub.dataset_download('vipoooool/new-plant-diseases-dataset'); print('Downloaded to:', path)"
 ```
 
-Ensure the directory structure matches:
+Ensure the folders are organized under `data/dataset/`:
 - `data/dataset/train/<class_folders>`
 - `data/dataset/valid/<class_folders>`
 
-### 3. Model Training
+### Step 3: Run Model Training
 
-To train the CNN model from scratch:
+Train the CNN model from scratch on the dataset:
 
 ```bash
 python backend/train.py
 ```
 
-The best trained model will be saved to `models/crop_disease_cnn.keras` and training history plots to `output/training_history.png`.
+- Trained model output: `models/crop_disease_cnn.keras`
+- Loss & Accuracy training plots: `output/training_history.png`
 
-### 4. Running Unit Tests
+### Step 4: Run Automated Tests
 
-Verify the project setup and model pipeline:
+Run unit tests to verify backend module configurations, model architecture compilation, and preprocessing logic:
 
 ```bash
 python -m unittest tests/test_pipeline.py -v
 ```
 
-### 5. Running CLI Inference
+### Step 5: Run CLI Single-Image Inference
 
-Predict disease class for a single leaf image:
+Predict crop disease on an input leaf image via command line:
 
 ```bash
 python backend/predict.py --image path/to/leaf_image.jpg
 ```
 
-### 6. Launching the Frontend Web App
+### Step 6: Launch Frontend Streamlit Web Application
 
-Start the interactive Streamlit web interface:
+Launch the interactive web user interface:
 
 ```bash
 streamlit run frontend/app.py
 ```
 
-Open `http://localhost:8501` in your browser to test leaf image diagnosis.
+Open `http://localhost:8501` in your web browser to upload leaf photographs and get AI plant disease diagnosis.
 
 ---
 
-## 💻 Example CLI Output
+## 💻 Example CLI Prediction Output
 
 ```text
 ============================================================
@@ -238,16 +193,8 @@ Top Predictions:
 
 ---
 
-## 🔮 Future Enhancements
-
-- **Transfer Learning**: Integrate MobileNetV3 / ResNet50 backbones for improved feature extraction and lightweight deployment on mobile devices.
-- **Severity Assessment**: Quantify leaf infection coverage percentages using color segmentation.
-- **Treatment Suggestions**: Integrate automated agronomic recommendation guidelines based on diagnosed diseases.
-- **REST API Endpoint**: Package the inference pipeline as a FastAPI service for mobile application integration.
-
----
-
 ## 📜 License & Acknowledgments
 
-- Dataset source: **PlantVillage / New Plant Diseases Dataset** on Kaggle.
-- Built with TensorFlow, OpenCV, and Streamlit.
+- GitHub Repository: [sansannycodes/Crop-Disease-Detection](https://github.com/sansannycodes/Crop-Disease-Detection)
+- Dataset Source: **PlantVillage / New Plant Diseases Dataset** on Kaggle.
+- Technology Stack: Python, TensorFlow, Keras, OpenCV, Streamlit, NumPy, Pandas, Matplotlib, Seaborn, scikit-learn.
