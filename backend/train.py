@@ -52,14 +52,14 @@ def plot_training_history(history, save_path: Path):
     os.makedirs(save_path.parent, exist_ok=True)
     plt.savefig(save_path, dpi=150)
     plt.close()
-    print(f"[+] Saved training history plot to: {save_path}")
+    print(f"Saved training history plot to: {save_path}")
 
 
 def train():
     """Executes the complete training workflow."""
-    print("=" * 70)
-    print(" CROP DISEASE DETECTION - CNN TRAINING PIPELINE")
-    print("=" * 70)
+    print("======================================================================")
+    print(" CROP DISEASE DETECTION - TRAINING PIPELINE")
+    print("======================================================================")
 
     # Ensure output & model directories exist
     os.makedirs(config.MODELS_DIR, exist_ok=True)
@@ -73,7 +73,7 @@ def train():
             img_size=config.IMG_SIZE
         )
     except Exception as e:
-        print(f"\n[!] Dataset error: {e}")
+        print(f"\nDataset error: {e}")
         print("Please check data/README.md for dataset placement instructions.")
         sys.exit(1)
 
@@ -122,14 +122,14 @@ def train():
     plot_training_history(history, config.HISTORY_PLOT_PATH)
 
     val_loss, val_acc, val_top3 = model.evaluate(val_gen)
-    print("\n" + "=" * 70)
+    print("\n======================================================================")
     print(" FINAL VALIDATION METRICS")
-    print("=" * 70)
+    print("======================================================================")
     print(f" Validation Loss      : {val_loss:.4f}")
     print(f" Validation Accuracy  : {val_acc * 100:.2f}%")
     print(f" Top-3 Categorical Acc: {val_top3 * 100:.2f}%")
     print(f" Saved Model Path     : {config.MODEL_PATH}")
-    print("=" * 70)
+    print("======================================================================")
 
 
 if __name__ == "__main__":

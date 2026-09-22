@@ -1,13 +1,13 @@
-# Dataset Placement & Setup Guide - Crop-Disease-Detection
+# Dataset Setup Guide - Crop-Disease-Detection
 
-This directory holds the training, validation, and test datasets for the **Crop-Disease-Detection** project.
-Because raw image datasets (~2 GB) are too large to commit directly to GitHub, follow the instructions below to download and set up the dataset locally.
+This directory stores the dataset for the **Crop-Disease-Detection** project.
+The dataset is excluded from version control due to file size limits. Follow the instructions below to download and configure the dataset locally.
 
 ---
 
-## 1. Expected Dataset Directory Structure
+## 1. Directory Layout
 
-Place the leaf images into `data/dataset/` with subdirectories matching the 38 class names:
+Extract leaf images into `data/dataset/` under `train` and `valid` subfolders matching the class names:
 
 ```text
 data/
@@ -15,44 +15,40 @@ data/
     ├── train/
     │   ├── Apple___Apple_scab/
     │   ├── Apple___Black_rot/
-    │   ├── ...
-    │   └── Tomato___healthy/
+    │   └── ...
     └── valid/
         ├── Apple___Apple_scab/
         ├── Apple___Black_rot/
-        ├── ...
-        └── Tomato___healthy/
+        └── ...
 ```
 
 ---
 
-## 2. Downloading the Dataset
+## 2. Download Options
 
-### Option A: Via Python (KaggleHub - Recommended)
+### Option A: Using KaggleHub
 
-Run the following snippet in Python to download the **New Plant Diseases Dataset (Augmented)** from Kaggle:
+Run the following Python command to download the dataset from Kaggle:
 
 ```python
 import kagglehub
 
-# Download latest version
 path = kagglehub.dataset_download("vipoooool/new-plant-diseases-dataset")
-print("Dataset downloaded to:", path)
-
-# Copy or move the train and valid folders into data/dataset/
+print("Downloaded to:", path)
 ```
 
-### Option B: Manual Download from Kaggle
+Copy or move the `train` and `valid` subdirectories to `data/dataset/`.
 
-1. Visit the Kaggle dataset page: [New Plant Diseases Dataset](https://www.kaggle.com/datasets/vipoooool/new-plant-diseases-dataset).
-2. Click **Download** and extract the ZIP archive.
-3. Move the `New Plant Diseases Dataset(Augmented)/New Plant Diseases Dataset(Augmented)/train` and `valid` folders into `data/dataset/`.
+### Option B: Manual Download
+
+1. Download the New Plant Diseases Dataset from Kaggle.
+2. Extract the archive.
+3. Move the `train` and `valid` folders into `data/dataset/`.
 
 ---
 
-## 3. Dataset Overview
+## 3. Dataset Summary
 
-- **Source**: PlantVillage Dataset (Augmented)
-- **Total Classes**: 38 plant leaf disease classes
-- **Crops Included**: Apple, Blueberry, Cherry, Corn, Grape, Orange, Peach, Pepper, Potato, Raspberry, Soybean, Squash, Strawberry, Tomato.
-- **Image Format**: RGB Leaf Images (Resized to 224x224 during preprocessing).
+- Dataset: PlantVillage (Augmented)
+- Total Classes: 38 leaf disease categories
+- Resolution: Resized to 224 x 224 RGB during model input processing.
